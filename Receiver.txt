@@ -1,0 +1,66 @@
+volatile bool risingEdgeDetected = false;
+
+const unsigned long debounceTimeMs = 300;
+
+volatile unsigned long lastInterruptTime =0;
+
+void risingEdgeISR() {
+  unsigned long now = millis();
+  if (now - lastInterruptTime > debounceTimeMs) {
+    risingEdgeDetected = true;
+    lastInterruptTime = now;
+  }
+}
+void setup() {
+  const int inputPin = 2;
+  // put your setup code here, to run once:
+  Serial1.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);  // LED ON
+
+  pinMode(inputPin, INPUT_PULLDOWN);
+
+  attachInterrupt(digitalPinToInterrupt(inputPin), risingEdgeISR, RISING);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (risingEdgeDetected){
+    risingEdgeDetected=false;
+    Serial1.println("H");
+    delay(1000);
+  }
+}
+volatile bool risingEdgeDetected = false;
+
+const unsigned long debounceTimeMs = 300;
+
+volatile unsigned long lastInterruptTime =0;
+
+void risingEdgeISR() {
+  unsigned long now = millis();
+  if (now - lastInterruptTime > debounceTimeMs) {
+    risingEdgeDetected = true;
+    lastInterruptTime = now;
+  }
+}
+void setup() {
+  const int inputPin = 2;
+  // put your setup code here, to run once:
+  Serial1.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);  // LED ON
+
+  pinMode(inputPin, INPUT_PULLDOWN);
+
+  attachInterrupt(digitalPinToInterrupt(inputPin), risingEdgeISR, RISING);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (risingEdgeDetected){
+    risingEdgeDetected=false;
+    Serial1.println("H");
+    delay(1000);
+  }
+}
